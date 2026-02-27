@@ -3,6 +3,7 @@ type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
 interface RequestOptions {
   method?: HttpMethod;
   body?: unknown;
+  params?: Record<string, string | number | boolean | undefined>;
 }
 
 export async function request<T>(
@@ -11,12 +12,20 @@ export async function request<T>(
   apikey: string,
   options: RequestOptions = {},
 ): Promise<T> {
-  const { method = 'GET', body } = options;
+  const { method = 'GET', body, params } = options;
 
   const cleanEndpoint = endpoint.replace(/^\//, '');
 
   const url = new URL(`${baseUrl}/${cleanEndpoint}`);
   url.searchParams.append('key', apikey);
+
+  if (params) {
+    Object.entries(params).forEach(([key, value]) => {
+      if (value !== undefined && value !== null) {
+        url.searchParams.append(key, value.toString());
+      }
+    });
+  }
 
   const response = await fetch(url.toString(), {
     method,
@@ -31,5 +40,5 @@ export async function request<T>(
   if (!response.ok) {
     throw new Error(`Shodan API Error: ${response.status}`);
   }
-  return response.json();
+  return response.json() as Promise<T>;
 }
