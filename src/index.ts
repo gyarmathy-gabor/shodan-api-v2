@@ -1,5 +1,5 @@
 import { buildCoreModule } from './modules/core/index';
-import { buildStreamModule } from './modules/stream';
+//import { buildStreamModule } from './modules/stream';
 import { buildTrendsModule } from './modules/trends';
 import { buildExploitsModule } from './modules/exploits';
 
@@ -10,7 +10,7 @@ export const createShodanClient = (apiKey: string) => {
 
   return {
     ...buildCoreModule(apiKey),
-    ...buildStreamModule(apiKey),
+    //...buildStreamModule(apiKey),
     ...buildTrendsModule(apiKey),
     ...buildExploitsModule(apiKey),
   };
