@@ -44,4 +44,4 @@ export type ShodanFilter =
   | 'version'
   | 'vuln';
 
-export type ShodanFilterValue = ShodanFilter | `${ShodanFilter}:${string}`;
+export type ShodanFilterValue = ShodanFilter | `${ShodanFilter}:${string}` | string;
