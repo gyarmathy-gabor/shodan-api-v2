@@ -38,4 +38,21 @@ export const buildScanningMethods = (baseUrl: string, apiKey: string) => ({
       body: { ips: ipsPayload },
     });
   },
+  /**
+   * RESTRICTED ENDPOINT: Crawl the Internet for a specific port and protocol.
+   *
+   * @remarks
+   * This method is restricted to security researchers and companies with a Shodan Enterprise Data license.
+   * To apply for access to this method as a researcher, please email jmath@shodan.io with information about your project.
+   * Access is restricted to prevent abuse.
+   *
+   * @param port - The port that Shodan should crawl the Internet for.
+   * @param protocol - The name of the protocol that should be used to interrogate the port. See /shodan/protocols for a list of supported protocols.
+   */
+  scanInternet: async (port: number, protocol: string) => {
+    return await request(baseUrl, 'shodan/scan/internet', apiKey, {
+      method: 'POST',
+      body: { port: port, protocol: protocol },
+    });
+  },
 });
