@@ -68,7 +68,7 @@ export const buildDirectoryMethods = (
    * **Warning:** The Shodan Query Directory feature appears to have been removed or disabled on Shodan's backend.
    * As of recent testing, this endpoint consistently returns a `503 Service Unavailable` error.
    */
-  getTags: async (options: GetTagsOptions): Promise<GetTagsResponse> => {
+  getTags: async (options?: GetTagsOptions): Promise<GetTagsResponse> => {
     return request(baseUrl, 'shodan/query/tags', apiKey, {
       params: {
         size: options?.size,
